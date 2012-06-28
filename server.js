@@ -1,7 +1,9 @@
 var fs=require("fs");
 var Lazy=require("lazy");
+var path=require("path");
 
 function parse(file, callback, end, internal){
+  file = path.normalize(file);
   var first = !internal;
   if(first) {
     var internal={count:0};
@@ -14,6 +16,7 @@ function parse(file, callback, end, internal){
       callback(x);
     else
       pieces.slice(1).forEach(function(y) {
+        y = path.resolve(path.dirname(file), y);
         parse(y, callback, end, internal);
       });
   }).on("pipe", function() {
