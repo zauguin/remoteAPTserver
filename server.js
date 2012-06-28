@@ -11,6 +11,8 @@ function parse(file, callback, end, internal){
     internal.count++;
   }
   return Lazy(fs.createReadStream(file)).lines.map(String).forEach(function(x) {
+    if(x[0]=='#')
+      return;
     pieces=x.split(' ');
     if(pieces[0]!=":include")
       callback(x);
