@@ -37,6 +37,11 @@ var http = require('http');
 http.createServer(function (request, response) {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     getFileFromIp(request.connection.remoteAddress, function(path) {
-      parse(path, function(x){response.write(x+"\n");}, function(){response.end()});
+      fs.stat(path, function(err, stat) {
+        if(err || !stat.isFile()) {
+          path = (process.argv[2]?process.argv[2]:".")+"/default";
+        }
+        parse(path, function(x){response.write(x+"\n");}, function(){response.end()});
+      });
     });
 }).listen(process.argv[3]?process.argv[3]:8080);
