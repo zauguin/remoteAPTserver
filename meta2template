@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ $# -eq 1 ]
+then
+  echo "#$1:"
+  echo "#Depends:"
+  $0 $1 Depends
+  echo "#Recommends:"
+  $0 $1 Recommends
+  echo "#Suggests:"
+  $0 $1 Suggests|sed 's/^/#/'
+else
+  LANG='en_US' apt-cache depends $1|sed -n '/ '$2': /!d;s/'$2': //;/^ *</n;s/^ *//;p'
+fi
