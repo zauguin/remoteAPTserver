@@ -46,4 +46,4 @@ http.createServer(function (request, response) {
         parse(path, function(x){response.write(x+"\n");}, function(){response.end()});
       });
     });
-}).listen(process.argv[3]?process.argv[3]:8080);
+}).listen(process.argv[3]?process.argv[3]:8080, "::");
