@@ -5,6 +5,6 @@ module.exports = function(ip, callback) {
   if(match = ip.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/))
     ip = match[1];
   dns.reverse(ip, function(err, domains) {
-    callback(domains?domains[0]:'');
+    callback(domains);
   });
 }
